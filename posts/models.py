@@ -3,6 +3,7 @@ from django.conf import settings
 
 # Create your models here.
 class Post(models.Model):
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_posts')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     photo = models.ImageField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)

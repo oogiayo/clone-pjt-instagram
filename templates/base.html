@@ -8,16 +8,26 @@
 </head>
 <body>
   <!-- Start Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light sticky align-items-baseline">
-    <a class="navbar-brand" href="{% url 'posts:index' %}">Instagram</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white sticky align-items-baseline border-bottom justify-content-center">
 
-    <div class="collapse navbar-collapse align-items-baseline" id="navbarSupportedContent">
-      <p class="mr-auto">{{ user }}님, 반갑습니다!</p>
-      <ul class="navbar-nav mr-5 align-items-baseline">
+
+    <div class="collapse navbar-collapse align-items-baseline justify-content-xl-around justify-content-lg-between" id="navbarSupportedContent">
+      <!-- <p class="mr-auto">{{ user }}님, 반갑습니다!</p> -->
+      <a class="navbar-brand" href="{% url 'posts:index' %}">Instagram</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="검색" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
+      </form>
+
+      <ul class="navbar-nav align-items-baseline">
         {% if user.is_authenticated %}
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'accounts:profile' request.user %}">내프로필</a>
+          </li>
           <li class="nav-item active">
             <form class="nav-link" action="{% url 'accounts:logout' %}" method="POST">
               {% csrf_token %}
@@ -29,19 +39,14 @@
           </li>
         {% else %}
           <li class="nav-item active">
-            <a class="nav-link" href="{% url 'accounts:login' %}">로그인</a>
+            <a class="nav-link btn btn-primary text-white mr-2" href="{% url 'accounts:login' %}"><b>로그인</b></a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="{% url 'accounts:signup' %}">회원가입</a>
+            <a class="nav-link text-primary" href="{% url 'accounts:signup' %}"><b>회원가입</b></a>
           </li>
         {% endif %}
-        
-        
       </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
+
     </div>
   </nav>
   <!-- End Navbar -->
