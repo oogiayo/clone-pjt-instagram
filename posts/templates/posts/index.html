@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1 class="text-center">메인 화면</h1>
+  <hr>
+  {% for post in posts %}
+    <h3>{{ post.user }}</h3>
+    <hr>
+  {% endfor %}
+
+{% endblock  %}

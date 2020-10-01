@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1 class="text-center">로그인 화면</h1>
+  <hr>
+
+  <form action="" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-dark">로그인</button>
+    <a class="btn btn-dark" href="">취소</a>
+  </form>
+
+{% endblock  %}
