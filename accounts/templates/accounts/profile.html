@@ -7,11 +7,16 @@
       <h3 class="display-6 d-inline mr-3">{{ person }}</h3>
       <form action="{% url 'accounts:follow' person.username %}" method="POST" class="d-inline">
         {% csrf_token %}
-        {% if request.user not in person.followers.all %}
-          <button class="btn btn-primary">팔로우</button>
+        {% if request.user != person %}
+          {% if request.user not in person.followers.all %}
+            <button class="btn btn-primary">팔로우</button>
+          {% else %}
+            <button class="btn btn-primary">팔로우취소</button>
+          {% endif %}
         {% else %}
-          <button class="btn btn-primary">팔로우취소</button>
+            <a class="btn btn-primary" href="{% url 'accounts:update' %}">회원정보수정</a>
         {% endif %}
+        
       </form>
     </div>
     <hr class="my-4">

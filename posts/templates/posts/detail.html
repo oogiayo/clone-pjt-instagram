@@ -8,14 +8,38 @@
     <img src="{{ post.photo.url }}" alt="{{ post.photo }}">
   {% endif %}
   <hr>
-  {% if request.user==post.user %}
+  {% if request.user == post.user %}
     <form action="{% url 'posts:delete' post.pk %}" method="POST">
       {% csrf_token %}
-      <a class="btn btn-dark" href="{% url 'posts:update' post.pk %}">게시글 수정</a>
-      <button class="btn btn-danger">게시글 삭제</button>
+        <a class="btn btn-dark" href="{% url 'posts:update' post.pk %}">게시글 수정</a>
+        <button class="btn btn-danger">게시글 삭제</button>
     </form>  
   {% endif %}
 
+  <hr>
+  <h3>댓글 목록</h3>
+  <hr>
+  {% if comments %}
+    {% for comment in comments %}
+      <div class="d-flex align-items-baseline mb-3">
+        <p class="mr-3">{{ comment.user }} : {{ comment.content }}</p>
+        <form action="{% url 'posts:delete_comment' post.pk comment.pk %}" method="POST">
+          {% csrf_token %}
+          <button class="border-0 btn-danger">삭제</button>
+        </form>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>아직 작성된 댓글이 없습니다.</p>
+  {% endif %}
+
+  <form action="{% url 'posts:create_comment' post.pk %}" method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <button class="btn btn-dark">작성하기</button>
+  </form>
+
+  <hr>
 
 
 {% endblock  %}
