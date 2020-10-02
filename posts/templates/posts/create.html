@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1 class="text-center">포스팅 화면</h1>
+  <hr>
+
+  <form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_table }}
+    <button class="btn btn-dark">작성하기</button>
+    <a class="btn btn-dark" href="">취소</a>
+  </form>
+
+{% endblock  %}

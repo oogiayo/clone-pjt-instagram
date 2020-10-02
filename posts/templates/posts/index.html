@@ -3,8 +3,15 @@
 {% block content %}
   <h1 class="text-center">메인 화면</h1>
   <hr>
+  <a href="{% url 'posts:create' %}">게시글 작성</a>
+  <hr>
   {% for post in posts %}
     <h3>{{ post.user }}</h3>
+    {% if post.photo %}
+      <a href="{% url 'posts:detail' post.pk %}">
+        <img src="{{ post.photo.url }}" alt="{{ post.photo }}">      
+      </a>
+    {% endif %}
     <hr>
   {% endfor %}
 

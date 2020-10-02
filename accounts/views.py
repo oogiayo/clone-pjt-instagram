@@ -41,7 +41,7 @@ def login(request):
     return render(request, 'accounts/login.html', context)
 
 
-@require_http_methods(['GET', 'POST'])
+@require_POST
 def logout(request):
     if request.user.is_authenticated:
         auth_logout(request)
@@ -50,11 +50,9 @@ def logout(request):
     return redirect('accounts:login')
 
 
+@login_required
 @require_http_methods(['GET', 'POST'])
 def update(request):
-    if not request.user.is_authenticated:
-        return redirect('accounts:login')
-
     if request.method=='POST':
         form = CustomUserChangeForm(request.POST, instance=request.user)
         if form.is_valid():
@@ -68,6 +66,7 @@ def update(request):
     return render(request, 'accounts/update.html', context)
 
 
+@login_required
 @require_http_methods(['GET', 'POST'])
 def delete(request):
     if not request.user.is_authenticated:
@@ -80,7 +79,7 @@ def delete(request):
     return render(request, 'accounts/delete.html')
     
 
-
+@login_required
 @require_http_methods(['GET', 'POST'])
 def password_update(request):
     if not request.user.is_authenticated:
@@ -101,11 +100,9 @@ def password_update(request):
 
 
 # User Profile ----------------------------------
+@login_required
 @require_http_methods(['GET', 'POST'])
 def profile(request, username):
-    if not request.user.is_authenticated:
-        return redirect('accounts:login')
-
     person = get_object_or_404(User, username=username)
     context ={
         'person': person,
