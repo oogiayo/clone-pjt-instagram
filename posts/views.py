@@ -102,3 +102,17 @@ def delete_comment(request, post_pk, comment_pk):
     comment = post.comment_set.get(pk=comment_pk)
     comment.delete()
     return redirect('posts:detail', post_pk)
+
+
+# Like ---------------------------------
+@require_POST
+def like(request, post_pk):
+    if not request.user.is_authenticated:
+        return redirect('accounts:login')
+
+    post = get_object_or_404(Post, pk=post_pk)
+    if post.like_users.filter(username=request.user).exists():
+        post.like_users.remove(request.user)
+    else:
+        post.like_users.add(request.user)
+    return redirect('posts:detail', post_pk)

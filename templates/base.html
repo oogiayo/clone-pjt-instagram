@@ -8,21 +8,19 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <title>Instagram</title>
 </head>
-<body>
+<body class="bg-light">
   <!-- Start Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-white sticky align-items-baseline border-bottom justify-content-center">
-
-
-    <div class="collapse navbar-collapse align-items-baseline justify-content-xl-around justify-content-lg-between" id="navbarSupportedContent">
+  <nav class="navbar navbar-expand navbar-light bg-white sticky align-items-baseline border-bottom justify-content-center sticky-top">
+    <div class="collapse navbar-collapse align-items-baseline justify-content-xl-around justify-content-between" id="navbarSupportedContent">
       <!-- <p class="mr-auto">{{ user }}님, 반갑습니다!</p> -->
       <a class="navbar-brand" href="{% url 'posts:index' %}">Instagram</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="검색" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
+      <form class="form-inline my-2 my-lg-0 d-none d-sm-inline">
+        <input class="form-control mr-sm-2 bg-light" type="search" placeholder="검색" aria-label="Search">
+        {% comment %} <button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button> {% endcomment %}
       </form>
 
       <ul class="navbar-nav align-items-baseline">
@@ -48,16 +46,15 @@
           </li>
         {% endif %}
       </ul>
-
     </div>
   </nav>
   <!-- End Navbar -->
 
 
-  <h1 class="text-center">Instagram</h1>
-  <hr>
+  {% comment %} <h1 class="text-center">Instagram</h1>
+  <hr> {% endcomment %}
 
-  <div class="container">
+  <div class="container-lg section-md" >
     {% block content %}
     {% endblock  %}
   </div>

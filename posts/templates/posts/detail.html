@@ -8,6 +8,16 @@
     <img src="{{ post.photo.url }}" alt="{{ post.photo }}">
   {% endif %}
   <hr>
+    <form action="{% url 'posts:like' post.pk %}" method="POST">
+      {% csrf_token %}
+      {% if request.user in post.like_users.all %}
+        <button class="btn btn-primary">좋아요취소</button>
+      {% else %}
+        <button class="btn btn-primary">좋아요</button>
+      {% endif %}
+    </form>
+    <p>{{ post.like_users.all.count }}명이 좋아합니다.</p>
+  <hr>
   {% if request.user == post.user %}
     <form action="{% url 'posts:delete' post.pk %}" method="POST">
       {% csrf_token %}
@@ -20,6 +30,7 @@
   <h3>댓글 목록</h3>
   <hr>
   {% if comments %}
+    <p>{{ post.comment_set.all.count }}개의 댓글이 달렸습니다.</p>
     {% for comment in comments %}
       <div class="d-flex align-items-baseline mb-3">
         <p class="mr-3">{{ comment.user }} : {{ comment.content }}</p>

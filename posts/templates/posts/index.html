@@ -1,18 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1 class="text-center">메인 화면</h1>
-  <hr>
-  <a href="{% url 'posts:create' %}">게시글 작성</a>
-  <hr>
-  {% for post in posts %}
-    <h3>{{ post.user }}</h3>
-    {% if post.photo %}
-      <a href="{% url 'posts:detail' post.pk %}">
-        <img src="{{ post.photo.url }}" alt="{{ post.photo }}">      
-      </a>
-    {% endif %}
-    <hr>
-  {% endfor %}
+  <!-- <h1 class="text-center">메인 화면</h1> -->
+  <!-- <hr> -->
+  <!-- <hr> -->
+  <div class="row justify-content-center">
+    <div class="col-7">
+      <div class="border mt-3 mb-4 bg-white" style="height: 100px;">
+        <a href="{% url 'posts:create' %}">게시글 작성</a>
+      </div>
+      {% for post in posts %}
+        <div class="border mt-1 mb-5 bg-white">
+          <h3>{{ post.user }}</h3>
+          {% if post.photo %}
+            <a href="{% url 'posts:detail' post.pk %}">
+              <img src="{{ post.photo.url }}" alt="{{ post.photo }}">      
+            </a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+    <div class="col-3 my-5 ">
+      <h3>{{ request.user }}</h3>
+    </div>
+
+  </div>
 
 {% endblock  %}

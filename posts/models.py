@@ -11,7 +11,7 @@ class Post(models.Model):
         # upload_to="media/%Y/%m/%d",
         blank=True,
         format = 'JPEG',
-        processors = [ResizeToFill(600, 600)],
+        processors = [ResizeToFill(633, 633)],
         options = {'quality': 90},
     )
     created_at = models.DateTimeField(auto_now_add=True)

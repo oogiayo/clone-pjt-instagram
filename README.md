@@ -94,3 +94,25 @@
 
 ## 4. 새로 배운 것 & 어려웠던 점
 
+- front
+
+  ```
+  Grid system 어렵
+  ```
+
+  ```
+  Hover (마우스 오버 효과)
+  
+  Transition
+  ```
+
+
+
+
+
+- modeling
+
+```
+imageField 어렵
+```
+
