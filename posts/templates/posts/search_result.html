@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <dir class="pt-3">
+    <h3 class="display-6 d-inline mr-3">{{ hashtag }}</h3>
+    <h5>게시물 <b>{{ posts.count }}</b></h5>
+  </dir>      
+
+  <hr class="my-4">
+
+  <div class="row">
+    {% for post in posts %}
+      <div class="col-4 pr-1 p-0 pb-1 p-md-2 p-lg-3">
+        {% if post.photo %}
+        <div style="">
+        <a href="{% url 'posts:detail' post.pk %}">
+          <img src="{{ post.photo.url }}" alt="{{ post.photo }}" class="w-100 h-100 back"> 
+        </a>
+        </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+
+  
+{% endblock  %}

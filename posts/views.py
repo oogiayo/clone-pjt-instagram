@@ -3,6 +3,7 @@ from .models import Post, Comment, Tag
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods, require_POST
 from .forms import PostForm, CommentForm, TagForm
+from accounts.models import User
 
 # Create your views here.
 @login_required
@@ -132,3 +133,22 @@ def like(request, post_pk):
     else:
         post.like_users.add(request.user)
     return redirect('posts:detail', post_pk)
+
+
+# Search ------------------------------
+@login_required
+@require_http_methods(['GET', 'POST'])
+def search(request):
+    search = request.GET.get('search')
+    if search[0]=='#' and Tag.objects.filter(content=search).exists():
+        tag = Tag.objects.get(content=search)
+        posts = tag.taged_posts.all()
+        context = {
+            'hashtag': search,
+            'posts': posts,
+        }
+        return render(request, 'posts/search_result.html', context)
+    elif User.objects.filter(username=search).exists():
+        return redirect('accounts:profile', search)
+    else:
+        return render(request, 'accounts/not_found_user.html')

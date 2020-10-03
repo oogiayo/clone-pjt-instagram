@@ -14,5 +14,6 @@ urlpatterns = [
     path('<int:post_pk>/delete/<int:comment_pk>', views.delete_comment, name='delete_comment'),
     # like
     path('<int:post_pk>/like/', views.like, name='like'),
-    # Hashtag
+    # Search
+    path('search/', views.search, name='search'),
 ]
