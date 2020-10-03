@@ -106,6 +106,24 @@
   Transition
   ```
 
+```
+Django에서 static file (css,img 사용하기)
+
+django는 모듈화가 잘된건지. 웹개발에 최적화 된건지
+여하간, tomcat처럼 디렉토리에 이미지나 CSS를 넣는다고 찾아지지 않는다.
+
+(html) templates 처럼 특정 디렉토리를 생성하고 setting.py 파일에 지정해줘야 한다
+setting.py에서
+STATIC_URL = '/static/' 해주고
+
+각 app 디렉토리 밑에 /static이란 디렉토리를 만들어준다.
+사용할 때는 load staticfiles를 불러준후에 경로를 다음과 같이 지정해주면 된다.
+{% load staticfiles %}
+<img src="{% static "img/logo_nav.png" %}">
+
+출처: https://bcho.tistory.com/821 [조대협의 블로그]
+```
+
 
 
 
@@ -114,5 +132,15 @@
 
 ```
 imageField 어렵
+```
+
+
+
+
+
+```
+Hashtag 개어렵,...
+모델링은 일단 M:N 했는데
+구현이 어렵다 흐윽
 ```
 

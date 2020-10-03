@@ -7,6 +7,16 @@
   {% if post.photo %}
     <img src="{{ post.photo.url }}" alt="{{ post.photo }}">
   {% endif %}
+  
+  <p>
+  {% for word in post.content.split %}
+    <p>{{ word }}</p>
+  {% endfor %}
+  {% for tag in post.hashtags.all %}
+    <a href="#">{{ tag.content }}</a>
+  {% endfor %}
+  </p>
+
   <hr>
     <form action="{% url 'posts:like' post.pk %}" method="POST">
       {% csrf_token %}

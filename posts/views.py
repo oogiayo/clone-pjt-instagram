@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Post, Comment
+from .models import Post, Comment, Tag
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods, require_POST
-from .forms import PostForm, CommentForm
+from .forms import PostForm, CommentForm, TagForm
 
 # Create your views here.
 @login_required
@@ -18,17 +18,32 @@ def index(request):
 @require_http_methods(['GET', 'POST'])
 def create(request):
     if request.method=='POST':
-        form = PostForm(request.POST, request.FILES)
-        if form.is_valid():
-            post = form.save(commit=False)
-            # post.photo = request.FILES['photo']
+        post_form = PostForm(request.POST, request.FILES)
+        if post_form.is_valid():
+            post = post_form.save(commit=False)
+            content = post.content.split()
             post.user = request.user
             post.save()
-            return redirect('posts:index')
+
+            content_new = ''
+            for word in content:
+                if word[0]=='#':
+                    if {'content': word} in Tag.objects.all().values('content'):
+                        tag = Tag.objects.get(content=word)
+                        post.hashtags.add(tag)                
+                    else:
+                        tag = Tag.objects.create(content=word)
+                        post.hashtags.add(tag)                
+                else:
+                    content_new += word
+            post.content = content_new
+            post.save()
+
+            return redirect('posts:detail', post.pk)
     else:
-        form = PostForm()
+        post_form = PostForm()
     context = {
-        'form': form,
+        'post_form': post_form,
     }
     return render(request, 'posts/create.html', context)
 
@@ -39,6 +54,7 @@ def detail(request, post_pk):
     post = get_object_or_404(Post, pk=post_pk)
     comments = post.comment_set.all()
     form = CommentForm()
+    content = post.content.split()
     context = {
         'form': form,
         'post': post,

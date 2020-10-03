@@ -10,10 +10,12 @@
 </head>
 <body class="bg-light">
   <!-- Start Navbar -->
-  <nav class="navbar navbar-expand navbar-light bg-white sticky align-items-baseline border-bottom justify-content-center sticky-top">
+  <nav class="navbar navbar-expand navbar-light bg-white align-items-baseline border-bottom justify-content-center sticky-top" >
+    
     <div class="collapse navbar-collapse align-items-baseline justify-content-xl-around justify-content-between" id="navbarSupportedContent">
-      <!-- <p class="mr-auto">{{ user }}님, 반갑습니다!</p> -->
-      <a class="navbar-brand" href="{% url 'posts:index' %}">Instagram</a>
+      <a class="navbar-brand" href="{% url 'posts:index' %}">
+        <img src="{% static 'logo_nav.jpg' %}">
+      </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
