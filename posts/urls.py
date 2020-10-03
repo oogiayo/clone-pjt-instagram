@@ -16,4 +16,5 @@ urlpatterns = [
     path('<int:post_pk>/like/', views.like, name='like'),
     # Search
     path('search/', views.search, name='search'),
+    path('click_tag/<hashtag>', views.click_tag, name='click_tag'),
 ]

@@ -1,29 +1,102 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
   <!-- <h1 class="text-center">메인 화면</h1> -->
-  <!-- <hr> -->
-  <!-- <hr> -->
+
   <div class="row justify-content-center">
-    <div class="col-7">
-      <div class="border mt-3 mb-4 bg-white" style="height: 100px;">
-        <a href="{% url 'posts:create' %}">게시글 작성</a>
+    <div class="col-sm-8 col-md-7">
+      
+      <div class="border mt-3 mb-4 bg-white" style="height: 130px;">
+        {% comment %} <a href="{% url 'posts:create' %}">게시글 작성</a> {% endcomment %}
+        {% if request.user.followings.all %}
+          {% for person in request.user.followings.all %}
+            {% if person.profile_image %}
+              <a href="{% url 'accounts:profile' person %}" class="text-decoration-none">
+                <img src="{{ person.profile_image.url }}" alt="{{ person.profile_image }}" class="mx-3 mt-3" style="border-radius: 50%; max-height: 55%; border-style: solid; border-color: deeppink;">
+                <br>
+                <b class="ml-3 pl-1 text-dark">{{ person }}</b>
+              </a>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+
       </div>
+
       {% for post in posts %}
         <div class="border mt-1 mb-5 bg-white">
-          <h3>{{ post.user }}</h3>
+          <div class="row m-0 p-2 justify-content-between d-flex flex-row align-items-baseline">
+            <div class="d-flex flex-row align-items-baseline">
+              <a href="{% url 'accounts:profile' post.user %}">
+                {% if post.user.profile_image %}
+                  <img src="{{ post.user.profile_image.url }}" alt="{{ post.user.profile_image }}" style="border-radius: 50%; width: 45px; border-style: solid; border-color: deeppink;">
+                {% else %}
+                  <img src="{% static 'none_profile.jpg' %}" style="border-radius: 50%; width: 45px;" class="border border-warning">
+                {% endif %}
+              </a>
+              <a href="{% url 'accounts:profile' post.user %}"><b class="ml-2 pl-1 my-0 text-dark">{{ post.user }}</b></a>
+            </div>
+            <div class="mr-2">
+              <button class="btn border-0 bg-white"><h5>···</h5></button>
+            </div>
+          </div>
+
           {% if post.photo %}
             <a href="{% url 'posts:detail' post.pk %}">
-              <img src="{{ post.photo.url }}" alt="{{ post.photo }}">      
+              <img src="{{ post.photo.url }}" alt="{{ post.photo }}" style="max-width: 100%; height: auto;">      
             </a>
           {% endif %}
+
+          <div class="row m-2">
+            <form action="{% url 'posts:like' post.pk %}" method="POST">
+              {% csrf_token %}
+              {% if request.user in post.like_users.all %}
+                <button class="fas fa-heart fa-2x border-0 bg-white"></button>
+              {% else %}
+                <button class="far fa-heart fa-2x border-0 bg-white"></button>
+              {% endif %}
+              <i class="far fa-comment fa-2x ml-2"></i>
+              <i class="far fa-paper-plane fa-2x ml-2"></i>
+            </form>
+          </div>
+          <p class="mx-3 my-0 py-0"><b>좋아요 {{ post.like_users.all.count }}개</b></p>
+
+          <div class="col pl-2 ml-2 d-none d-md-block">
+            <p class="mb-1">
+              <a href="{% url 'accounts:profile' post.user %}"><b class="mr-1 my-0 text-dark">{{ post.user }}</b></a>
+              {% for word in post.content.split %}
+                {{ word }}
+              {% endfor %}
+              <br>
+              {% for tag in post.hashtags.all %}
+                <a href="{% url 'posts:click_tag' tag.content %}">{{ tag.content }}</a>
+              {% endfor %}
+            </p>
+            <p class="m-0 p-0">
+              
+              <a href="{% url 'posts:detail' post.pk %}" class="text-black-50 text-decoration-none">댓글 {{ post.comment_set.all.count }}개 모두 보기</a>
+              <p class="text-black-50 pt-2" style="font-size: x-small;">{{ post.created_at|date:'m월 d일' }}</p>
+            </p>
+          </div>
+            
+
         </div>
       {% endfor %}
     </div>
-    <div class="col-3 my-5 ">
-      <h3>{{ request.user }}</h3>
+
+    <div class="col-3 my-5 d-none d-lg-block">
+      {% if request.user.profile_image %}
+        <img src="{{ request.user.profile_image.url }}" alt="{{ request.user.profile_image }}" style="border-radius: 50%; width: 30%;">
+      {% else %}
+        <img src="{% static 'none_profile.jpg' %}">
+      {% endif %}
+      <h5 class="display-6 d-inline ml-3">{{ request.user }}</h5>
     </div>
 
   </div>
+
+
+
+
 
 {% endblock  %}

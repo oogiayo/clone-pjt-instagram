@@ -9,8 +9,8 @@ class CustomUserCreationForm(UserCreationForm):
 
 
 class CustomUserChangeForm(UserChangeForm):
+    password = None
     
     class Meta:
-        password = None
         model = get_user_model()
-        fields = ('email', 'first_name', 'last_name')
+        fields = ('email', 'first_name', 'last_name', 'profile_image', 'introduction')

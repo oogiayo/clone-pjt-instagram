@@ -6,6 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/1b216d2a26.js" crossorigin="anonymous"></script>
   <title>Instagram</title>
 </head>
 <body class="bg-light">
@@ -22,23 +23,32 @@
 
       <form class="form-inline my-2 my-lg-0 d-none d-sm-inline" action="{% url 'posts:search' %}" method="GET">
         <input class="form-control mr-sm-2 bg-light" type="search" placeholder="검색" aria-label="Search" name="search">
-        {% comment %} <button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button> {% endcomment %}
       </form>
 
       <ul class="navbar-nav align-items-baseline">
         {% if user.is_authenticated %}
           <li class="nav-item active">
-            <a class="nav-link" href="{% url 'accounts:profile' request.user %}">내프로필</a>
+            {% if request. %}{% endif %}
+            <a class="nav-link" href="{% url 'posts:index' %}"><img src="{% static 'home_nav.jpg' %}"></a>
           </li>
+
           <li class="nav-item active">
-            <form class="nav-link" action="{% url 'accounts:logout' %}" method="POST">
-              {% csrf_token %}
-              <button class="border-0 bg-transparent">로그아웃</button>
-            </form>
+            <div class="dropdown">  
+              <button class="border-0 bg-white dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="{% static 'profile_nav.jpg' %}">
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item pl-2 ml-1" href="{% url 'accounts:profile' request.user %}"><i class="far fa-user-circle mr-2"></i>프로필</a>
+                <a class="dropdown-item pl-2 ml-1" href="{% url 'accounts:update' %}"><i class="fas fa-cog mr-2"></i>설정</a>
+                <hr class="my-2">
+                <form class="nav-link" action="{% url 'accounts:logout' %}" method="POST">
+                  {% csrf_token %}
+                  <button class="border-0 bg-transparent">로그아웃</button>
+                </form>
+              </div>
+            </div>
           </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="{% url 'accounts:update' %}">회원정보수정</a>
-          </li>
+
         {% else %}
           <li class="nav-item active">
             <a class="nav-link btn btn-primary text-white mr-2" href="{% url 'accounts:login' %}"><b>로그인</b></a>
@@ -46,6 +56,7 @@
           <li class="nav-item active">
             <a class="nav-link text-primary" href="{% url 'accounts:signup' %}"><b>회원가입</b></a>
           </li>
+
         {% endif %}
       </ul>
     </div>

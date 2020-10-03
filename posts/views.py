@@ -22,10 +22,10 @@ def create(request):
         post_form = PostForm(request.POST, request.FILES)
         if post_form.is_valid():
             post = post_form.save(commit=False)
-            content = post.content.split()
             post.user = request.user
             post.save()
 
+            content = post.content.split()
             content_new = ''
             for word in content:
                 if word[0]=='#':
@@ -36,7 +36,7 @@ def create(request):
                         tag = Tag.objects.create(content=word)
                         post.hashtags.add(tag)                
                 else:
-                    content_new += word
+                    content_new += word + ' '
             post.content = content_new
             post.save()
 
@@ -151,4 +151,20 @@ def search(request):
     elif User.objects.filter(username=search).exists():
         return redirect('accounts:profile', search)
     else:
-        return render(request, 'accounts/not_found_user.html')
+        return render(request, 'posts/not_found.html')
+
+
+@login_required
+@require_http_methods(['GET', 'POST'])
+def click_tag(request, hashtag):
+    if Tag.objects.filter(content=hashtag).exists():
+        tag = Tag.objects.get(content=hashtag)
+        posts = tag.taged_posts.all()
+        context = {
+            'hashtag': hashtag,
+            'posts': posts,
+        }
+        return render(request, 'posts/search_result.html', context)
+    else:
+        return render(request, 'posts/not_found.html')
+
