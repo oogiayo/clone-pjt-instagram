@@ -152,7 +152,7 @@
 
 2. 게시물 세부 페이지
 
-   ![image-20201003213650032](file://C:/Users/dongu/Desktop/clone-pjt/README.assets/image-20201003213650032.png?lastModify=1601729023)
+   ![image-20201003235646033](README.assets/image-20201003235646033.png)
 
 
 
