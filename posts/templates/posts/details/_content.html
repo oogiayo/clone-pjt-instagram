@@ -1,0 +1,38 @@
+{% load static %}
+
+<div class="d-flex flex-row align-items-start">
+
+  <!-- start 작성자 프로필사진 & ID -->
+  <div class="col-1 pl-0 pt-1 d-none d-md-block">
+    <a href="{% url 'accounts:profile' post.user %}">
+      {% if post.user.profile_image %}
+        <img src="{{ post.user.profile_image.url }}" alt="{{ post.user.profile_image }}" style="border-radius: 50%; width: 35px;">
+      {% else %}
+        <img src="{% static 'none_profile.jpg' %}" style="border-radius: 50%; width: 35px;">
+      {% endif %}
+    </a>
+  </div>
+  <!-- end -->
+    
+  <!-- start 게시글 내용 & 해쉬태그 & 작성일 -->
+  <div class="col pl-2 ml-2 d-none d-md-block">
+
+    <p class="mb-1">
+      <a href="{% url 'accounts:profile' post.user %}"><b class="mr-1 my-0 text-dark">{{ post.user }}</b></a>
+      {% for word in post.content.split %}
+        {{ word }}
+      {% endfor %}
+      
+      <br>
+
+      {% for tag in post.hashtags.all %}
+        <a href="{% url 'posts:click_tag' tag.content %}">{{ tag.content }}</a>
+      {% endfor %}
+    </p>
+
+    <p class="text-black-50" style="font-size: small;">{{ post.created_at|date:'m월 d일' }}</p>
+  
+  </div>
+  <!-- end-->
+
+</div>

@@ -1,0 +1,34 @@
+{% load static %}
+
+<div class="d-flex flex-row align-items-center">
+
+  <!-- start 작성자 프로필사진 -->
+  <a href="{% url 'accounts:profile' post.user %}">
+  {% if post.user.profile_image %}
+    <img src="{{ post.user.profile_image.url }}" alt="{{ post.user.profile_image }}" style="border-radius: 50%; width: 35px;">
+  {% else %}
+    <img src="{% static 'none_profile.jpg' %}" style="border-radius: 50%; width: 35px;">
+  {% endif %}
+  </a>
+  <!-- end -->
+
+  <!-- start 작성자 ID 및 팔로우 버튼 -->
+  <div class="d-flex flex-row align-items-baseline">
+    
+    <h5 class="ml-3"><a href="{% url 'accounts:profile' post.user %}" class="text-dark">{{ post.user }}</a></h5>
+    
+    <form action="{% url 'accounts:follow' post.user %}" method="POST">
+      {% csrf_token %}
+      {% if request.user != post.user %}
+        {% if request.user not in post.user.followers.all %}
+          <button class="btn btn-toolbar text-primary m-0"><b>팔로우</b></button>
+        {% else %}
+          <button class="btn btn-toolbar text-primary m-0"><b>팔로우 취소</b></button>
+        {% endif %}
+      {% endif %}
+    </form>
+    
+  </div>
+  <!-- end -->
+
+</div>

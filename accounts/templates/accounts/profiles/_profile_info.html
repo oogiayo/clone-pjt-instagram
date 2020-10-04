@@ -1,0 +1,54 @@
+{% load static %}
+
+<div class="bg-light pt-4 mt-2">
+
+  <div class="row">
+    <!-- 프로필 사진 -->
+    <div class="col-3 ml-5 mb-3">
+      {% if person.profile_image %}
+        <img src="{{ person.profile_image.url }}" alt="{{ person.profile_image }}" style="border-radius: 50%; max-width: 100%;">
+      {% else %}
+        <img src="{% static 'none_profile.jpg' %}">
+      {% endif %}
+    </div>
+
+    <div class="col ml-5">
+      <div class="row ml-1">
+        <!-- 프로필 유저 이름 -->
+        <h3 class="display-6 d-inline mr-3">{{ person }}</h3>
+
+        <!-- 팔로우/프로필 편집 버튼 -->
+        <form action="{% url 'accounts:follow' person.username %}" method="POST" class="d-inline">
+          {% csrf_token %}
+          {% if request.user != person %}
+            {% if request.user not in person.followers.all %}
+              <button class="btn btn-primary">팔로우</button>
+            {% else %}
+              <button class="btn btn-toolbar border-dark">팔로우 취소</button>
+            {% endif %}
+          {% else %}
+            <div class="d-flex flex-row align-items-center">
+              <a class="btn btn-toolbar border-secondary mr-2" href="{% url 'accounts:update' %}">
+                <b>프로필 편집</b>
+              </a>
+              <a class="fas fa-cog fa-2x" style="color: black;" href="{% url 'accounts:update' %}"></a>
+            </div>
+          {% endif %}
+        </form>
+      </div>
+      <br>
+
+        <!-- 게시물/팔로워/팔로우 숫자 -->
+        <div class="row" style="max-width: 100%;">
+          <h5 class="col-lg-2">게시물  <b>{{ person.post_set.all.count }}</b></h5>
+          <h5 class="d-none d-sm-block col-lg-2">팔로워  <b>{{ person.followers.all.count }}</b></h5>
+          <h5 class="d-none d-sm-block col-lg-2">팔로우  <b>{{ person.followings.all.count }}</b></h5>
+        </div>
+      <br>
+      
+      <!-- 자기소개 -->
+      <h5 class="d-none d-md-block"><b>{{ person.introduction|linebreaks }}</b></h5>
+      
+    </div>
+  </div>
+</div>
