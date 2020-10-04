@@ -1,0 +1,330 @@
+[
+{
+    "model": "posts.tag",
+    "pk": 1,
+    "fields": {
+        "content": "#라이딩"
+    }
+},
+{
+    "model": "posts.tag",
+    "pk": 2,
+    "fields": {
+        "content": "#인제"
+    }
+},
+{
+    "model": "posts.tag",
+    "pk": 3,
+    "fields": {
+        "content": "#북한산"
+    }
+},
+{
+    "model": "posts.tag",
+    "pk": 4,
+    "fields": {
+        "content": "#MAAP져지"
+    }
+},
+{
+    "model": "posts.tag",
+    "pk": 5,
+    "fields": {
+        "content": "#트리곤"
+    }
+},
+{
+    "model": "posts.tag",
+    "pk": 6,
+    "fields": {
+        "content": "#보라원50"
+    }
+},
+{
+    "model": "posts.tag",
+    "pk": 7,
+    "fields": {
+        "content": "#카메라의식"
+    }
+},
+{
+    "model": "posts.tag",
+    "pk": 8,
+    "fields": {
+        "content": "#취미생활"
+    }
+},
+{
+    "model": "posts.tag",
+    "pk": 9,
+    "fields": {
+        "content": "#새옷"
+    }
+},
+{
+    "model": "posts.tag",
+    "pk": 10,
+    "fields": {
+        "content": "#흑백사진"
+    }
+},
+{
+    "model": "posts.tag",
+    "pk": 11,
+    "fields": {
+        "content": "#남산입구"
+    }
+},
+{
+    "model": "posts.tag",
+    "pk": 12,
+    "fields": {
+        "content": "#자초"
+    }
+},
+{
+    "model": "posts.tag",
+    "pk": 13,
+    "fields": {
+        "content": "#자전거초보"
+    }
+},
+{
+    "model": "posts.tag",
+    "pk": 14,
+    "fields": {
+        "content": "#인생샷"
+    }
+},
+{
+    "model": "posts.tag",
+    "pk": 15,
+    "fields": {
+        "content": "#DSLR"
+    }
+},
+{
+    "model": "posts.tag",
+    "pk": 16,
+    "fields": {
+        "content": "#맥포토그래퍼"
+    }
+},
+{
+    "model": "posts.tag",
+    "pk": 17,
+    "fields": {
+        "content": "#MAC"
+    }
+},
+{
+    "model": "posts.tag",
+    "pk": 18,
+    "fields": {
+        "content": "#photographer"
+    }
+},
+{
+    "model": "posts.tag",
+    "pk": 19,
+    "fields": {
+        "content": "#취미활동"
+    }
+},
+{
+    "model": "posts.tag",
+    "pk": 20,
+    "fields": {
+        "content": "#남산5분대"
+    }
+},
+{
+    "model": "posts.tag",
+    "pk": 21,
+    "fields": {
+        "content": "#스프린트중"
+    }
+},
+{
+    "model": "posts.tag",
+    "pk": 22,
+    "fields": {
+        "content": "#싸피"
+    }
+},
+{
+    "model": "posts.tag",
+    "pk": 23,
+    "fields": {
+        "content": "#자바"
+    }
+},
+{
+    "model": "posts.tag",
+    "pk": 24,
+    "fields": {
+        "content": "#JAVA"
+    }
+},
+{
+    "model": "posts.post",
+    "pk": 1,
+    "fields": {
+        "user": 1,
+        "photo": "KakaoTalk_20200727_213842229_04.jpg",
+        "content": "1번은 우리가 원하는 결과를 도출할 수 없습니다. 계속 말하지만 db에는 파일의 경로가 문자열로 저장 되어있기 때문에 저 부분은 그저 문자열을 참조할 뿐이죠.",
+        "created_at": "2020-10-03T11:09:22.682Z",
+        "updated_at": "2020-10-03T12:01:48.309Z",
+        "like_users": [
+            1,
+            2,
+            3,
+            4,
+            5
+        ],
+        "hashtags": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+        ]
+    }
+},
+{
+    "model": "posts.post",
+    "pk": 2,
+    "fields": {
+        "user": 1,
+        "photo": "KakaoTalk_20200727_213842229_05.jpg",
+        "content": "항상 드리는 말이지만 많이들 구독해 주셔서 정말 감사드리구 좋아해 주시고 사랑해주신 만큼 다음에도 더 좋은 노래, 더 좋은 영상으로 보답해드리겠습니다.",
+        "created_at": "2020-10-03T12:39:59.925Z",
+        "updated_at": "2020-10-04T08:41:58.115Z",
+        "like_users": [],
+        "hashtags": [
+            1,
+            7,
+            8,
+            9
+        ]
+    }
+},
+{
+    "model": "posts.post",
+    "pk": 3,
+    "fields": {
+        "user": 1,
+        "photo": "KakaoTalk_20200727_214255525_tECfbf9.jpg",
+        "content": "혹시 듣고 싶은 플레이리스트 주제가 있다면 댓글 또는 메일로 마구마구 추천 해주세요!",
+        "created_at": "2020-10-03T12:40:43.575Z",
+        "updated_at": "2020-10-04T08:42:15.019Z",
+        "like_users": [
+            1
+        ],
+        "hashtags": [
+            10,
+            11,
+            12,
+            13
+        ]
+    }
+},
+{
+    "model": "posts.post",
+    "pk": 4,
+    "fields": {
+        "user": 1,
+        "photo": "main.jpg",
+        "content": "많이들 구독해주셔서 정말 감사합니다. 저에게 구독과 좋아요는 큰 힘이 되니 영상이 마음에 들었는데 안눌렀다면 꼭 눌러주세요! ",
+        "created_at": "2020-10-03T12:41:42.183Z",
+        "updated_at": "2020-10-03T12:41:42.283Z",
+        "like_users": [],
+        "hashtags": [
+            14,
+            15,
+            16,
+            17,
+            18
+        ]
+    }
+},
+{
+    "model": "posts.post",
+    "pk": 5,
+    "fields": {
+        "user": 1,
+        "photo": "KakaoTalk_20200727_213842229_01_QMV9U9k.jpg",
+        "content": "라이딩 꿀잼~~ ",
+        "created_at": "2020-10-03T12:55:16.501Z",
+        "updated_at": "2020-10-03T12:55:16.546Z",
+        "like_users": [],
+        "hashtags": [
+            1,
+            19,
+            20,
+            21
+        ]
+    }
+},
+{
+    "model": "posts.post",
+    "pk": 6,
+    "fields": {
+        "user": 3,
+        "photo": "스크린샷1.jpg",
+        "content": "ㅎㅇㅎㅇ ",
+        "created_at": "2020-10-04T07:38:33.675Z",
+        "updated_at": "2020-10-04T07:38:33.732Z",
+        "like_users": [
+            3
+        ],
+        "hashtags": [
+            22,
+            23,
+            24
+        ]
+    }
+},
+{
+    "model": "posts.comment",
+    "pk": 3,
+    "fields": {
+        "user": 2,
+        "content": "ㅎㅇ 라이딩가실",
+        "created_at": "2020-10-03T11:34:48.145Z",
+        "post": 1
+    }
+},
+{
+    "model": "posts.comment",
+    "pk": 4,
+    "fields": {
+        "user": 3,
+        "content": "와 ㄹㅇ 재밌었겠다.. 근데 힘들었을듯",
+        "created_at": "2020-10-03T11:49:31.648Z",
+        "post": 1
+    }
+},
+{
+    "model": "posts.comment",
+    "pk": 5,
+    "fields": {
+        "user": 4,
+        "content": "후 졸라 잠온다..ㅋㅋㅋ 미치겠다아 바람좀 쐬고 와야하나",
+        "created_at": "2020-10-03T11:58:47.689Z",
+        "post": 1
+    }
+},
+{
+    "model": "posts.comment",
+    "pk": 6,
+    "fields": {
+        "user": 3,
+        "content": "테스트 댓글!",
+        "created_at": "2020-10-04T07:38:40.879Z",
+        "post": 6
+    }
+}
+]

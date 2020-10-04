@@ -1,0 +1,114 @@
+[
+{
+    "model": "accounts.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$m9jsCbyKym9t$O66KSPI6NCbob/l41Qo5iMq20V/yjuawAeoPgXcZcbE=",
+        "last_login": "2020-10-04T08:41:38.494Z",
+        "is_superuser": false,
+        "username": "oogiayo",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-10-03T09:30:25.135Z",
+        "profile_image": "KakaoTalk_20200727_214255525_pTCJcnT.jpg",
+        "introduction": "±èµ¿¿í | KIM DONG WOOK",
+        "groups": [],
+        "user_permissions": [],
+        "followings": [
+            3,
+            5
+        ]
+    }
+},
+{
+    "model": "accounts.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$5qRrNI2ph7sk$XBGfsk9LHj7BDH2Eq7N+u9utGzclMbll9rdpiipRFig=",
+        "last_login": "2020-10-03T11:26:16.449Z",
+        "is_superuser": false,
+        "username": "ehddnr5352",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-10-03T11:26:16.219Z",
+        "profile_image": "",
+        "introduction": "",
+        "groups": [],
+        "user_permissions": [],
+        "followings": [
+            1
+        ]
+    }
+},
+{
+    "model": "accounts.user",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$mOKJgI9vxOME$fz/65LCFRvlZyf4cMZ5rRj/L9G5WeLoGjQJRON44a6g=",
+        "last_login": "2020-10-04T06:26:12.907Z",
+        "is_superuser": false,
+        "username": "donguk",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-10-03T11:49:13.630Z",
+        "profile_image": "KakaoTalk_20200727_213842229_01.jpg",
+        "introduction": "",
+        "groups": [],
+        "user_permissions": [],
+        "followings": [
+            1
+        ]
+    }
+},
+{
+    "model": "accounts.user",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$eGWfcriKrPPF$kfjqxcZKYJvSco2+H7VXf90hfd+bJTCfmvd/hwtkt+U=",
+        "last_login": "2020-10-03T12:02:06.902Z",
+        "is_superuser": false,
+        "username": "wkadhsek12",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-10-03T11:58:08.071Z",
+        "profile_image": "",
+        "introduction": "",
+        "groups": [],
+        "user_permissions": [],
+        "followings": []
+    }
+},
+{
+    "model": "accounts.user",
+    "pk": 5,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$29tNaqFqmmEE$QCmjM1UBA0ZG8tyZzkjYo/gu6szIGnRMInPifwIvOY8=",
+        "last_login": "2020-10-03T14:55:53.179Z",
+        "is_superuser": false,
+        "username": "test",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-10-03T12:31:58.310Z",
+        "profile_image": "",
+        "introduction": "",
+        "groups": [],
+        "user_permissions": [],
+        "followings": []
+    }
+}
+]
