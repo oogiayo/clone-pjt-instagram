@@ -150,19 +150,14 @@
 
    
 
-2. 게시물 세부 페이지
+2. 게시물 세부 페이지 & 댓글 기능
 
    ![image-20201003213650032](file://C:/Users/dongu/Desktop/clone-pjt/README.assets/image-20201003213650032.png?lastModify=1601729023)
 
 
 
-3. 댓글 기능
-   - 
-
-
-
 3. 게시글 수정 및 삭제 기능
-   - 
+   - 내 게시글에만 수정/삭제 가능!
 
 
 
@@ -172,8 +167,8 @@
 
 ----
 
-1. 댓글 작성
-2. @멘션 기능 => Optional
+1. 댓글 작성 => 구현 OK
+2. @멘션 기능 => Optional  __(NOT Yet)__
 
 
 
@@ -254,11 +249,115 @@
 
 
 
+## 7. 새로 배운 것 & 어려웠던 점 + 해결 방법
+
+
+
+## A. 댓글 작성날짜 (ex. OO시간 전) 구현 과정 문제 해결
+
+> 처음에는 |timesince 사용해서 구현했다. 	ex) {{ comment.created_at|timesince }} 전 
+>
+> BUT )  1시간이 넘어가면 OO시간, OO분  => 이렇게 조금 지저분하게 나오는 문제가 있었다
+
+
+
+----
+
+#### [첫 번째 시도]
+
+---
+
+-  template 내에서 필터를 2번 붙여서 사용할 수 있지 않을까??
+
+  -  |date:'~~~'|timesince 이런식으로 섞어서 사용하고싶었는데, 원래 안되는지 내가 잘못했는지 잘 안됐다.
+
+  
+
+---
+
+#### [두 번째 시도]
+
+---
+
+- __Django 사용자 정의 필터(Custom Template Filter)__를 정의해서 구현성공!!!!!
+
+  
+
+1. Application 폴더(posts) 내부에 `templatetags` 패키지 폴더를 만든다.
+
+   - Django가 패키지 폴더로 인식해야하므로 폴더 내부에 `__init.py__`의 빈파일을 만들어서 패키지로 명시한다.
+
+   - 주의) `templatetags` 패키지를 추가하면 서버 재시작해야 적용됨
+
+     
+
+2. `templatetags` 폴더 내부에 원하는 이름의 .py 파일을 만든다.
+
+   - 나는 `custom_filter.py`로 만들었다.
+
+   - 해당 Application 폴더의 구조는 다음과 같다.
+
+     ```
+     # Application 폴더 구조
+     posts/
+         templatetags/
+             __init__.py
+             custom_filter.py
+     ```
+
+   - `custom_filter.py` 파일의 기본 형태는 다음과 같다.
+
+     ```python
+     from django import template
+     
+     register = template.Library()
+     ```
+
+   - 여기서 register는 유효한 tag library를 만들기 위한 모듈수준의 인스턴스 객체이다.
+
+   
+
+ 3. 내가 원하는 함수를 정의해준다.
+
+    - `@register.filter` 데코레이터를 함수에 붙여줘야 한다.
+
+    - 내가 다루려고 하는 Difference of Datetime은 `datetime.timedelta` 타입의 데이터 형태이고, 현재 시각이 필요하므로 `timezone`  모듈을 불러와서 사용한다.
+
+      ```python
+      from django import template
+      from django.utils import timezone
+      
+      register = template.Library()
+      
+      @register.filter
+      def processed_timesince(value):
+          dif = int((timezone.now() - value).seconds)
+          unit = {'초': 60, '분': 60, '시간': 24, '일': 31, '달': 12}
+          for key, val in unit.items():
+              if dif//val == 0:
+                  return str(dif) + key
+              else:
+                  dif //= val
+          return str(dif) + '년'
+      ```
+
+    
 
 
 
 
-## 7. 새로 배운 것 & 어려웠던 점
+
+
+
+
+
+
+
+
+
+
+
+
 
 - front
 
@@ -325,4 +424,10 @@ Hashtag 개어렵,...
 ```
 유저 profile_image가 저장이 안된다.....흑...왜지..
 ```
+
+
+
+
+
+
 

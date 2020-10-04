@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+  <!-- 해쉬태그 검색결과 정보 -->
   <dir class="pt-3">
     <h3 class="display-6 d-inline mr-3">{{ hashtag }}</h3>
     <h5>게시물 <b>{{ posts.count }}</b></h5>
   </dir>      
-
   <hr class="my-4">
 
+  <!-- 해쉬태그 검색결과 게시물 목록 -->
   <div class="row">
     {% for post in posts %}
       <div class="col-4 pr-1 p-0 pb-1 p-md-2 p-lg-3">
@@ -21,6 +23,5 @@
       </div>
     {% endfor %}
   </div>
-
   
 {% endblock  %}

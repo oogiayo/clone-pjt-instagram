@@ -1,0 +1,69 @@
+{% load static %}
+{% load custom_filter %}
+
+{% if comments %}
+  <!-- 댓글 작성자 정보 & 내용 -->
+  <div class="d-none d-md-block" style="overflow:auto; height: 150px;">
+
+  {% for comment in comments %}
+    <div class="d-flex align-items-start mb-0">
+      
+      <div class="col-1 pl-0 pt-1">
+        <a href="{% url 'accounts:profile' comment.user %}">
+          {% if comment.user.profile_image %}
+            <img src="{{ comment.user.profile_image.url }}" alt="{{ comment.user.profile_image }}" style="border-radius: 50%; width: 35px;">
+          {% else %}
+            <img src="{% static 'none_profile.jpg' %}" style="border-radius: 50%; width: 35px;">
+          {% endif %}
+        </a>
+      </div>
+      
+      <div class="col ml-3 h-auto">
+        <div class="row pb-0">
+          <p class="mr-3 mb-1">
+            <a href="{% url 'accounts:profile' comment.user %}" class="text-dark"><b>{{ comment.user }}</b></a> {{ comment.content }}
+          </p>
+        </div>
+        <div class="row">
+          <p class="text-black-50 mt-0 pt-0" style="font-size: small;">{{ comment.created_at|processed_timesince }} 전</p>
+          {% if request.user == comment.user %}
+            <form action="{% url 'posts:delete_comment' post.pk comment.pk %}" method="POST">
+              {% csrf_token %}
+              <button class="text-danger border-0 bg-white pl-2 ml-2">삭제</button>
+            </form>
+          {% endif %}
+        </div>
+      </div>
+      
+    </div>
+  {% endfor %}
+  </div>
+
+{% else %}
+  <p>아직 작성된 댓글이 없습니다.</p>
+
+{% endif %}
+<hr class="my-2 d-none d-md-block">
+    
+<!-- 좋아요 관련 -->
+<form action="{% url 'posts:like' post.pk %}" method="POST">
+  {% csrf_token %}
+  {% if request.user in post.like_users.all %}
+    <button class="fas fa-heart fa-2x border-0 bg-white"></button>
+  {% else %}
+    <button class="far fa-heart fa-2x border-0 bg-white"></button>
+  {% endif %}
+
+  <i class="far fa-comment fa-2x ml-2"></i>
+
+  <i class="far fa-paper-plane fa-2x ml-2"></i>
+</form>
+<p class="ml-1 mt-1 mb-0"><b>좋아요 {{ post.like_users.all.count }}개</b></p>
+<hr class="my-2">  
+
+<!-- 댓글 작성 -->
+<form action="{% url 'posts:create_comment' post.pk %}" method="POST">
+  {% csrf_token %}
+  {{ form }}
+  <button class="border-0 bg-white text-primary"><b>게시</b></button>
+</form>

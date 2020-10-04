@@ -1,0 +1,20 @@
+<!-- 프로필 유저의 게시글 이미지 모아보기 -->
+{% if person.post_set.all %}
+  <div class="row">
+    {% for post in person.post_set.all %}
+      <div class="col-4 pr-1 p-0 pb-1 p-md-2 p-lg-3">
+        {% if post.photo %}
+        <div>
+          <a href="{% url 'posts:detail' post.pk %}">
+            <img src="{{ post.photo.url }}" alt="{{ post.photo }}" class="w-100 h-100 back"> 
+          </a>
+        </div>
+        {% endif %}
+      </div>
+    {% endfor %}    
+  </div>
+
+{% else %}
+  <h3 class="text-center">{{ person }}님은 작성한 글이 아직 없습니다.</h3>
+
+{% endif %}

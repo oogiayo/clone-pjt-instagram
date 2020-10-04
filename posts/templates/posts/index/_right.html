@@ -1,0 +1,10 @@
+{% load static %}
+
+<div class="col-3 my-5 d-none d-lg-block">
+  {% if request.user.profile_image %}
+    <img src="{{ request.user.profile_image.url }}" alt="{{ request.user.profile_image }}" style="border-radius: 50%; width: 30%;">
+  {% else %}
+    <img src="{% static 'none_profile.jpg' %}" style="width: 30%;">
+  {% endif %}
+  <h5 class="display-6 d-inline ml-3">{{ request.user }}</h5>
+</div>
