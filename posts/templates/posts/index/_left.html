@@ -1,25 +1,38 @@
 {% load static %}
+{% load custom_filter %}
 
 <div class="col-sm-8 col-md-7">
   <!-- 팔로우 중인 유저 목록 -->
-  <div class="border mt-3 mb-4 bg-white" style="height: 130px;">
+  <div class="border mt-3 mb-4 bg-white d-flex flex-row" style="height: 130px;">
     {% if request.user.followings.all %}
       {% for person in request.user.followings.all %}
-        {% if person.profile_image %}
-          <a href="{% url 'accounts:profile' person %}" class="text-decoration-none">
-            <img src="{{ person.profile_image.url }}" alt="{{ person.profile_image }}" class="mx-3 mt-3" style="border-radius: 50%; max-height: 55%; border-style: solid; border-color: deeppink;">
-            <br>
-            <b class="ml-3 pl-1 text-dark">{{ person }}</b>
-          </a>
+        {% if person.post_set.all %}
+          <div class="d-block text-center" style="width: 120px">
+            <a href="{% url 'accounts:profile' person %}" class="text-decoration-none">
+              {% if person.profile_image %}
+                <img src="{{ person.profile_image.url }}" alt="{{ person.profile_image }}" class="mx-3 mt-3" style="border-radius: 50%; max-height: 55%; border-style: solid; border-color: deeppink;">
+              {% else %}
+                <img src="{% static 'none_profile.jpg' %}" class="mx-3 mt-3" style="border-radius: 50%; max-height: 55%; border-style: solid; border-color: deeppink;">
+              {% endif %}
+              <br>
+              <p class="text-dark"><b>{{ person }}</b></p>
+            </a>
+          </div>
         {% endif %}
       {% endfor %}
+    {% else %}
+        <h3 class="m-5 text-center">아직 팔로우중인 친구가 없습니다.</h3>
     {% endif %}
   </div>
 
   <!-- 팔로우 중인 유저들의 전체 게시글 (최신글 순서대로 정렬 기능은 not yet) -->
+
   {% for post in posts %}
-    {% if post.user in request.user.followings.all %}
+    {% if post.user in followings %}
       <div class="border mt-1 mb-5 bg-white">
+
+        <!-- 좋아요 클릭 시 이동할 앵커(Anchor) 태그-->
+        <a name="{{ post.pk }}"></a>
 
         <!-- 게시글 작성 유저 정보 -->
         <div class="row m-0 p-2 justify-content-between d-flex flex-row align-items-baseline">
@@ -28,10 +41,10 @@
               {% if post.user.profile_image %}
                 <img src="{{ post.user.profile_image.url }}" alt="{{ post.user.profile_image }}" style="border-radius: 50%; width: 45px; border-style: solid; border-color: deeppink;">
               {% else %}
-                <img src="{% static 'none_profile.jpg' %}" style="border-radius: 50%; width: 45px;" class="border border-warning">
+                <img src="{% static 'none_profile.jpg' %}" style="border-radius: 50%; width: 45px; border-style: solid; border-color: deeppink;">
               {% endif %}
             </a>
-            <a href="{% url 'accounts:profile' post.user %}"><b class="ml-2 pl-1 my-0 text-dark">{{ post.user }}</b></a>
+            <a class="text-decoration-none" href="{% url 'accounts:profile' post.user %}"><b class="ml-2 pl-1 my-0 text-dark">{{ post.user }}</b></a>
           </div>
           <div class="mr-2">
             <button class="btn border-0 bg-white"><h5>···</h5></button>
@@ -47,7 +60,7 @@
 
         <!-- 게시글 좋아요/댓글/DM 아이콘 -->
         <div class="row m-2">
-          <form action="{% url 'posts:like' post.pk %}" method="POST">
+          <form action="{% url 'posts:like' post.pk post.pk %}" method="POST">
             {% csrf_token %}
             {% if request.user in post.like_users.all %}
               <button class="fas fa-heart fa-2x border-0 bg-white"></button>
@@ -63,7 +76,7 @@
         <!-- 게시글 내용 & 댓글 관련 -->
         <div class="col pl-2 ml-2 d-none d-md-block">
           <p class="mb-1">
-            <a href="{% url 'accounts:profile' post.user %}"><b class="mr-1 my-0 text-dark">{{ post.user }}</b></a>
+            <a class="text-decoration-none" href="{% url 'accounts:profile' post.user %}"><b class="mr-1 my-0 text-dark">{{ post.user }}</b></a>
             {% for word in post.content.split %}
               {{ word }}
             {% endfor %}
@@ -76,7 +89,8 @@
 
           <p class="m-0 p-0">
             <a href="{% url 'posts:detail' post.pk %}" class="text-black-50 text-decoration-none">댓글 {{ post.comment_set.all.count }}개 모두 보기</a>
-            <p class="text-black-50 pt-2" style="font-size: x-small;">{{ post.created_at|date:'m월 d일' }}</p>
+            <p class="text-black-50 pt-2" style="font-size: smaller;">{{ post.created_at|processed_timesince }} 전</p>
+            
           </p>
         </div>
 
@@ -84,3 +98,4 @@
     {% endif %}
   {% endfor %}
 </div>
+

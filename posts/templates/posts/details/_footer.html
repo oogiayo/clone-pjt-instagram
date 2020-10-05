@@ -21,11 +21,11 @@
       <div class="col ml-3 h-auto">
         <div class="row pb-0">
           <p class="mr-3 mb-1">
-            <a href="{% url 'accounts:profile' comment.user %}" class="text-dark"><b>{{ comment.user }}</b></a> {{ comment.content }}
+            <a href="{% url 'accounts:profile' comment.user %}" class="text-dark text-decoration-none"><b>{{ comment.user }}</b></a> {{ comment.content }}
           </p>
         </div>
         <div class="row">
-          <p class="text-black-50 mt-0 pt-0" style="font-size: small;">{{ comment.created_at|processed_timesince }} 전</p>
+          <p class="text-black-50 mt-0 pt-0" style="font-size: small">{{ comment.created_at|processed_timesince }} 전</p>
           {% if request.user == comment.user %}
             <form action="{% url 'posts:delete_comment' post.pk comment.pk %}" method="POST">
               {% csrf_token %}
@@ -46,7 +46,7 @@
 <hr class="my-2 d-none d-md-block">
     
 <!-- 좋아요 관련 -->
-<form action="{% url 'posts:like' post.pk %}" method="POST">
+<form action="{% url 'posts:like' post.pk 'detail' %}" method="POST">
   {% csrf_token %}
   {% if request.user in post.like_users.all %}
     <button class="fas fa-heart fa-2x border-0 bg-white"></button>

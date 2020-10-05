@@ -1,10 +1,45 @@
 {% load static %}
 
-<div class="col-3 my-5 d-none d-lg-block">
+<div class="col-4 my-5 d-none d-xl-block">
+  <a class="text-decoration-none ml-2" href="{% url 'accounts:profile' request.user %}">
   {% if request.user.profile_image %}
-    <img src="{{ request.user.profile_image.url }}" alt="{{ request.user.profile_image }}" style="border-radius: 50%; width: 30%;">
+    <img src="{{ request.user.profile_image.url }}" alt="{{ request.user.profile_image }}" style="border-radius: 50%; width: 65px;">
   {% else %}
     <img src="{% static 'none_profile.jpg' %}" style="width: 30%;">
   {% endif %}
-  <h5 class="display-6 d-inline ml-3">{{ request.user }}</h5>
+  </a>
+  <a class="text-decoration-none" href="{% url 'accounts:profile' request.user %}"><h5 class="display-6 d-inline ml-3 text-dark">{{ request.user }}</h5></a>
+  
+  <div class="row justify-content-between mt-3 align-items-baseline">
+    <div class="col-7 text-black-50"><p><b>회원님을 위한 추천</b></p></div>
+    <div class="col-5"><p style="font-size: small;"><a href="#" class="text-dark text-decoration-none"><b>모두 보기</b></a></p></div>
+  </div>
+
+  {% for user in users %}
+    {% if user not in followings and user != request.user%}
+      <div class="row align-items-center">
+        <div class="col-1 mr-3">
+          <a href="{% url 'accounts:profile' user %}">
+            {% if user.profile_image %}
+              <img src="{{ user.profile_image.url }}" alt="{{ user.profile_image }}" style="border-radius: 50%; width: 45px;">
+            {% else %}
+              <img src="{% static 'none_profile.jpg' %}" style="border-radius: 50%; width: 45px;">
+            {% endif %}
+          </a>
+        </div>
+        <div class="col-5 pt-2 mt-1">
+          <a class="text-decoration-none" href="{% url 'accounts:profile' user %}"><b class="ml-2 pl-1 my-0 text-dark">{{ user }}</b></a>
+          <p class="ml-2 pl-1 text-black-50" style="font-size: smaller;"><b>회원님을 위한 추천</b></pc>
+        </div>
+
+        <div class="col-5 pl-4 ml-2">
+          <form action="{% url 'accounts:follow' user %}" method="POST">
+            {% csrf_token %}
+            <button class="btn btn-toolbar text-primary m-0" style="font-size: smaller;"><b>팔로우</b></button>
+          </form>
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+
 </div>

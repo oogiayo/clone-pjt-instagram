@@ -247,13 +247,15 @@
 
 
 
-
-
 ## 7. 새로 배운 것 & 어려웠던 점 + 해결 방법
 
 
 
-## A. 댓글 작성날짜 (ex. OO시간 전) 구현 과정 문제 해결
+---
+
+#### [댓글 작성날짜 (ex. OO시간 전) 구현 과정 문제 해결]
+
+---
 
 > 처음에는 |timesince 사용해서 구현했다. 	ex) {{ comment.created_at|timesince }} 전 
 >
@@ -261,11 +263,7 @@
 
 
 
-----
-
-#### [첫 번째 시도]
-
----
+#### #1 첫 번째 시도
 
 -  template 내에서 필터를 2번 붙여서 사용할 수 있지 않을까??
 
@@ -273,11 +271,9 @@
 
   
 
----
 
-#### [두 번째 시도]
 
----
+#### #2 두 번째 시도
 
 - __Django 사용자 정의 필터(Custom Template Filter)__를 정의해서 구현성공!!!!!
 
@@ -347,22 +343,14 @@
 
 
 
-
-
-
-
-
-
-
-
-
+- 앵커태그 활용 => (좋아요 누른 후 원하는 위치에 redirect)
 
 
 
 - front
 
   ```
-  Grid system 어렵
+  Grid system
   ```
 
   ```
@@ -371,23 +359,23 @@
   Transition
   ```
 
-```
-Django에서 static file (css,img 사용하기)
-
-django는 모듈화가 잘된건지. 웹개발에 최적화 된건지
-여하간, tomcat처럼 디렉토리에 이미지나 CSS를 넣는다고 찾아지지 않는다.
-
-(html) templates 처럼 특정 디렉토리를 생성하고 setting.py 파일에 지정해줘야 한다
-setting.py에서
-STATIC_URL = '/static/' 해주고
-
-각 app 디렉토리 밑에 /static이란 디렉토리를 만들어준다.
-사용할 때는 load staticfiles를 불러준후에 경로를 다음과 같이 지정해주면 된다.
-{% load staticfiles %}
-<img src="{% static "img/logo_nav.png" %}">
-
-출처: https://bcho.tistory.com/821 [조대협의 블로그]
-```
+  ```
+  Django에서 static file (css,img 사용하기)
+  
+  django는 모듈화가 잘된건지. 웹개발에 최적화 된건지
+  여하간, tomcat처럼 디렉토리에 이미지나 CSS를 넣는다고 찾아지지 않는다.
+  
+  (html) templates 처럼 특정 디렉토리를 생성하고 setting.py 파일에 지정해줘야 한다
+  setting.py에서
+  STATIC_URL = '/static/' 해주고
+  
+  각 app 디렉토리 밑에 /static이란 디렉토리를 만들어준다.
+  사용할 때는 load staticfiles를 불러준후에 경로를 다음과 같이 지정해주면 된다.
+  {% load staticfiles %}
+  <img src="{% static "img/logo_nav.png" %}">
+  
+  출처: https://bcho.tistory.com/821 [조대협의 블로그]
+  ```
 
 
 
@@ -395,35 +383,34 @@ STATIC_URL = '/static/' 해주고
 
 - modeling
 
-```
-imageField 어렵
-```
+  ```
+  imageField
+  ```
+
+  ```
+  Hashtag?
+  모델링은 M:N 했는데 구현이 어렵다
+  ```
+
+  ```
+  처음에 설계를 제대로 안해놓으니까 구현방법이 왔다갔다? 
+  a태그에 query string 넣고싶은데 => 그냥 함수 하나 더 만들었음...!
+  ```
+
+  
 
 
 
+- `.json` 파일로 dumpdata할 때 이모티콘이 있으면 Error가 떴다. => 따로 인코딩 명령어 커스터마이징 필요
 
-
-```
-Hashtag 개어렵,...
-모델링은 일단 M:N 했는데
-구현이 어렵다 흐윽
-```
-
-
-
-
-
-```
-처음에 설계를 제대로 안해놓으니까... a태그에 query string 넣고싶은데 안되나ㅠㅠ
-
-=> 그냥 함수 하나 더 만들었음...!
-```
-
-
-
-```
-유저 profile_image가 저장이 안된다.....흑...왜지..
-```
+  ```
+  CommandError: Unable to serialize database: 'cp949' codec can't encode character '\U0001f311' in position 24: illegal multibyte sequence
+  Exception ignored in: <generator object cursor_iter at 0x00000267A0DFD248>
+  Traceback (most recent call last):
+    File "C:\Users\dongu\Desktop\clone-pjt\venv\lib\site-packages\django\db\models\sql\compiler.py", line 1602, in cursor_iter
+      cursor.close()
+  sqlite3.ProgrammingError: Cannot operate on a closed database.
+  ```
 
 
 

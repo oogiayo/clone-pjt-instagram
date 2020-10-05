@@ -28,15 +28,31 @@
       <ul class="navbar-nav align-items-baseline">
         {% if user.is_authenticated %}
           <li class="nav-item active">
-            {% if request. %}{% endif %}
-            <a class="nav-link" href="{% url 'posts:index' %}"><img src="{% static 'home_nav.jpg' %}"></a>
+            {% if request.META.PATH_INFO == '/posts/' %}
+              <a class="nav-link pl-5 ml-5" href="{% url 'posts:index' %}"><img src="{% static 'home_nav_active.jpg' %}"></a>
+            {% else %}
+              <a class="nav-link" href="{% url 'posts:index' %}"><img src="{% static 'home_nav.jpg' %}"></a>
+            {% endif %}
+          </li>
+
+          <li class="nav-item active">
+            <a class="nav-link pl-1" href="#"><img src="{% static 'dm_nav.jpg' %}"></a>
+          </li>
+
+          <li class="nav-item active">
+            <a class="nav-link" href="#"><img src="{% static 'like_nav.jpg' %}"></a>
           </li>
 
           <li class="nav-item active">
             <div class="dropdown">  
               <button class="border-0 bg-white dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="{% static 'profile_nav.jpg' %}">
+                {% if request.user.profile_image %}
+                  <img src="{{ request.user.profile_image.url }}" alt="{{ request.user.profile_image }}" class="border" style="border-radius: 50%; width: 28px;">
+                {% else %}
+                  <img src="{% static 'profile_nav.jpg' %}">
+                {% endif %}
               </button>
+
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item pl-2 ml-1" href="{% url 'accounts:profile' request.user %}"><i class="far fa-user-circle mr-2"></i>프로필</a>
                 <a class="dropdown-item pl-2 ml-1" href="{% url 'accounts:update' %}"><i class="fas fa-cog mr-2"></i>설정</a>

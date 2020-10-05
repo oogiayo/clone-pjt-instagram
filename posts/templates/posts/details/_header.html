@@ -15,7 +15,7 @@
   <!-- start 작성자 ID 및 팔로우 버튼 -->
   <div class="d-flex flex-row align-items-baseline">
     
-    <h5 class="ml-3"><a href="{% url 'accounts:profile' post.user %}" class="text-dark">{{ post.user }}</a></h5>
+    <h5 class="ml-3"><a href="{% url 'accounts:profile' post.user %}" class="text-dark text-decoration-none">{{ post.user }}</a></h5>
     
     <form action="{% url 'accounts:follow' post.user %}" method="POST">
       {% csrf_token %}
@@ -30,5 +30,7 @@
     
   </div>
   <!-- end -->
-
+  
+    <button class="border-0 bg-white ml-auto mr-3"><a href="../#{{post.pk}}"><i class="fas fa-times fa-2x" style="color: black"></i></a></button>
+  
 </div>

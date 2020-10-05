@@ -1,16 +1,22 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, resolve_url
 from .models import Post, Comment, Tag
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods, require_POST
 from .forms import PostForm, CommentForm, TagForm
 from accounts.models import User
+from django.db.models import Count
+
 
 # Create your views here.
 @login_required
 def index(request):
-    posts = Post.objects.all()
+    posts = Post.objects.all().order_by('-created_at')
+    followings = request.user.followings.all()
+    users = User.objects.all().distinct()
     context = {
         'posts': posts,
+        'followings': followings,
+        'users': users,
     }
     return render(request, 'posts/index.html', context)
 
@@ -123,7 +129,7 @@ def delete_comment(request, post_pk, comment_pk):
 
 # Like ---------------------------------
 @require_POST
-def like(request, post_pk):
+def like(request, post_pk, before):
     if not request.user.is_authenticated:
         return redirect('accounts:login')
 
@@ -132,7 +138,12 @@ def like(request, post_pk):
         post.like_users.remove(request.user)
     else:
         post.like_users.add(request.user)
-    return redirect('posts:detail', post_pk)
+    
+    if before=='detail':
+        return redirect('posts:detail', post_pk)
+    else:
+        next_url = resolve_url('posts:index')
+        return redirect(f'{next_url}#{before}')
 
 
 # Search ------------------------------
@@ -168,3 +179,14 @@ def click_tag(request, hashtag):
     else:
         return render(request, 'posts/not_found.html')
 
+
+# Close ------------------------------
+# @login_required
+# @require_http_methods(['GET', 'POST'])
+# def close(request, post_pk, before):
+#     if before=='index':
+#         next_url = resolve_url('posts:index')
+#         return redirect(f'{next_url}#{post_pk}')
+#     else:
+#         next_url = resolve_url('accounts:profile', before)
+#         return redirect(f'{next_url}#{post_pk}')
