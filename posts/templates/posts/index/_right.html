@@ -33,9 +33,9 @@
         </div>
 
         <div class="col-5 pl-4 ml-2">
-          <form action="{% url 'accounts:follow' user %}" method="POST">
+          <form action="" method="POST" id="follow-form" data-username="{{user}}">
             {% csrf_token %}
-            <button class="btn btn-toolbar text-primary m-0" style="font-size: smaller;"><b>팔로우</b></button>
+            <button type="submit" class="btn btn-toolbar text-primary m-0" style="font-size: smaller;"><b>팔로우</b></button>
           </form>
         </div>
       </div>

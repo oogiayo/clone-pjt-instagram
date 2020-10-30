@@ -18,7 +18,7 @@
         <h3 class="display-6 d-inline mr-3">{{ person }}</h3>
 
         <!-- 팔로우/프로필 편집 버튼 -->
-        <form action="{% url 'accounts:follow' person.username %}" method="POST" class="d-inline">
+        <form action="{% url 'accounts:follow' person.username %}" method="POST" class="d-inline" id="follow-form" data-username="{{ person }}">
           {% csrf_token %}
           {% if request.user != person %}
             {% if request.user not in person.followers.all %}

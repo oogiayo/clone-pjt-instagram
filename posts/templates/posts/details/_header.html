@@ -17,7 +17,7 @@
     
     <h5 class="ml-3"><a href="{% url 'accounts:profile' post.user %}" class="text-dark text-decoration-none">{{ post.user }}</a></h5>
     
-    <form action="{% url 'accounts:follow' post.user %}" method="POST">
+    <form action="{% url 'accounts:follow' post.user %}" method="POST" id="follow-form" data-username="{{ post.user }}">
       {% csrf_token %}
       {% if request.user != post.user %}
         {% if request.user not in post.user.followers.all %}

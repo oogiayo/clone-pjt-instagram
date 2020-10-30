@@ -6,7 +6,7 @@ from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST, require_GET, require_http_methods
-
+from django.http import JsonResponse
 
 # User Authentication -------------------------------
 @require_http_methods(['GET', 'POST'])
@@ -121,7 +121,12 @@ def follow(request, username):
     if person!=me:
         if person.followers.filter(pk=me.pk).exists():
             person.followers.remove(me)
+            isFollowed = False
         else:
             person.followers.add(me)
-    return redirect('accounts:profile', username)
+            isFollowed = True
+        data = {
+            'isFollowed': isFollowed,
+        }
+    return JsonResponse(data)
 

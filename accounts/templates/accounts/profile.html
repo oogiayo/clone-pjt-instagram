@@ -11,4 +11,31 @@
   <!-- 프로필 화면의 유저 게시글 목록 -->
   {% include 'accounts/profiles/_profile_posts.html' %}
   
+  <script>
+    const followForm = document.querySelector('#follow-form');
+    const csrfToken = document.querySelector('input[name=csrfmiddlewaretoken]').value;
+    const config = { headers: {'X-CSRFToken': csrfToken}};
+
+    const followBtn = followForm.querySelector('button');
+    const username = followForm.dataset.username;
+    const API_URL = `/accounts/${username}/follow/`;
+    
+    function follow(e) {
+      e.preventDefault();
+      axios.post(API_URL, {}, config)
+        .then(response => {
+          const { isFollowed } = response.data;
+          followBtn.innerText = isFollowed ? '팔로우 취소' : '팔로우';
+          followBtn.classList.toggle('btn-primary');
+          followBtn.classList.toggle('btn-toolbar');
+          followBtn.classList.toggle('btn-secondary');
+        })
+        .catch(err => {
+          console.error(err);
+        })
+      };
+
+    followForm.addEventListener('submit', follow);
+  </script>
+
 {% endblock  %}
