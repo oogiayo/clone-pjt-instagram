@@ -33,7 +33,32 @@
     </form>  
   {% endif %}
 
+  <script>
+    const followForm = document.querySelector('#follow-form');
+    const csrfToken = document.querySelector('input[name=csrfmiddlewaretoken]').value;
+    const config = { headers: {'X-CSRFToken': csrfToken}};
+
+    const followBtn = followForm.querySelector('button');
+    const username = followForm.dataset.username;
+    const API_URL = `/accounts/${username}/follow/`;
+    
+    function follow(e) {
+      e.preventDefault();
+      axios.post(API_URL, {}, config)
+        .then(response => {
+          const { isFollowed } = response.data;
+          followBtn.innerHTML = isFollowed ? '<b>팔로우 취소</b>' : '<b>팔로우</b>' ;
+        })
+        .catch(err => {
+          console.error(err);
+        })
+      };
+
+    followForm.addEventListener('submit', follow);
+  </script>
+
 {% endblock  %}
 
 
-
+<!-- Javascript -->
+<script src="like.js"></script>
